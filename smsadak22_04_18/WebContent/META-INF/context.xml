@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	
+	  <!--   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver"
+		maxActive="1000" maxIdle="1000" maxWait="60" name="jdbc/myDatasource"
+		password="root" removeAbandonedTimeout="30000" type="javax.sql.DataSource"
+		url="jdbc:mysql://localhost:3306/sms" username="root"
+		logAbandoned="true" /> -->
+		
+		
+       <!-- <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver"
+        maxActive="80" maxIdle="80" maxWait="12000" name="jdbc/myDatasource"
+		password="sms_123" removeAbandonedTimeout="1000" type="javax.sql.DataSource"
+		url="jdbc:mysql://localhost:3306/sms" username="sms"
+		logAbandoned="true" />  -->
+		
+	  
+       <!--   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver"
+		maxActive="1000" maxIdle="1000" maxWait="60" name="jdbc/myDatasource"
+		password="sms_123" removeAbandonedTimeout="30000" type="javax.sql.DataSource"
+		url="jdbc:mysql://localhost:3306/sms" username="sms"
+		logAbandoned="true" />  -->
+		
+ <Resource
+                name="jdbc/myDatasource"
+                auth="Container"
+                type="javax.sql.DataSource"
+                url="jdbc:mysql://localhost:3306/adkdb"
+                driverClassName="com.mysql.jdbc.Driver"
+                username="root"
+                password="root"
+                maxActive="20"
+                maxIdle="10"
+                maxWait="10000"
+                minEvictableIdleTimeMillis="300000"
+                timeBetweenEvictionRunsMillis="300000"
+                validationQuery="SELECT 1"/> 
+	               
+		
+</Context>
+

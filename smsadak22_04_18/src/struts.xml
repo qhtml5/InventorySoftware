@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="default" extends="struts-default" namespace="/">
+
+		<!-- GENERAL SECTION BELOW -->
+		<!-- ############################### All login Configuration Start here ############################### -->
+
+		<interceptors>
+			<interceptor name="sessionCheck" class="util.SessionInterceptor"></interceptor>
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="sessionCheck"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="sessionExpired">sessionOut.jsp</result>
+		</global-results>
+
+		<!-- ##################################### LoginAction configuration Start Here ############################# -->
+
+		<action name="submitloginDetails" class="actions.LoginAction" method="submitLoginDetails">
+			<result name="adminPage"> index.jsp </result>
+			<result name="normalUser"> index.jsp  </result>
+			<result name="signInpage">login.jsp</result>
+			<result name="error">login.jsp</result>
+		</action>
+
+		<action name="logout" class="actions.LoginAction" method="logoutDetails">
+			<result name="success">login.jsp</result>
+			<result name="error">login.jsp</result>
+		</action>
+
+		<action name="indexCall" class="actions.LoginAction" method="callLogin">
+			<result name="success"> login.jsp </result>
+		</action>
+
+		<action name="getYearRangeOfStock" class="actions.LoginAction" method="getYearRangeOfStock">
+			<result name="success"> admin/stockYearRange.jsp </result>
+		</action>
+		
+		<action name="companyDetailsSave" class="actions.LoginAction" method="companyDetailsSave">
+			<result name="success"> login.jsp </result>
+		</action>
+		
+		<action name="companyDetailsUpdate" class="actions.LoginAction" method="companyDetailsUpdate">
+			<result name="success"> index.jsp  </result>
+		</action>
+		
+		<action name="adminIndexCall" class="actions.LoginAction" method="adminIndexCall">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">index.jsp </result>
+		</action>
+
+		<!-- ##################################### LoginAction configuration End Here ######################## -->
+
+		<!-- ##################################### Items Related configuration Start Here ######################## -->
+
+		<action name="showItemCategory" class="actions.ItemMasterAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/itemCategory.jsp </result>
+			<result name="sessionExpired"> sessionOut.jsp </result>
+		</action>
+		<action name="checkDupItemType" class="actions.ItemMasterAction" method="checkDupItemType">
+			<result name="success"> admin/addCategoryBtn.jsp </result>
+			<result name="error"> admin/addCategoryBtn.jsp </result>
+		</action>
+		<action name="saveItemType" class="actions.ItemMasterAction" method="saveItemType">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> messages.jsp </result>
+			<result name="error"> messages.jsp </result>
+			<result name="duplicate"> messages.jsp </result>
+		</action>
+		<action name="viewcategoryCall" class="actions.ItemMasterAction" method="viewcategoryCall">
+			<result name="sessionExpired"> sessionOut.jsp </result>
+			<result name="success"> admin/ItemCategoryList.jsp </result>
+		</action>
+		<action name="editItemCategoryCall" class="actions.ItemMasterAction" method="editItemCategoryCall">
+			<result name="success"> admin/itemCategoryEdit.jsp </result>
+			<result name="sessionExpired"> sessionOut.jsp </result>
+		</action>
+		<action name="editItemType" class="actions.ItemMasterAction" method="editItemTypeById">
+			<result name="success">messages.jsp</result>
+		</action>
+		
+		
+		<action name="addBrandCall" class="actions.ItemMasterAction">
+			<result name="sessionExpired"> sessionOut.jsp </result>
+			<result name="success"> admin/addBrand.jsp </result>
+		</action>
+		<action name="checkDupBrand" class="actions.ItemMasterAction" method="checkDupBrand">
+			<result name="success"> admin/addBrandBtn.jsp </result>
+			<result name="error"> admin/addBrandBtn.jsp </result>
+		</action>
+		<action name="addBrand" class="actions.ItemMasterAction" method="addBrand">
+			<result name="success"> messages.jsp </result>
+			<result name="error"> messages.jsp </result>
+			<result name="duplicate"> messages.jsp </result>
+		</action>
+		<action name="editBrandCall" class="actions.ItemMasterAction" method="getBrandById">
+			<result name="sessionExpired"> sessionOut.jsp </result>
+			<result name="success"> admin/brandEdit.jsp </result>
+			<result name="error"> messages.jsp </result>
+		</action>
+		<action name="editBrand" class="actions.ItemMasterAction" method="editBrandById">
+			<result name="success"> messages.jsp </result>
+			<result name="error"> messages.jsp </result>
+		</action>
+		
+		
+		 <action name="addSizeCall" class="actions.ItemMasterAction">
+			 <result name="sessionExpired"> sessionOut.jsp </result>
+			<result name="success"> admin/addSize.jsp </result>
+		</action>
+		<action name="checkDupSize" class="actions.ItemMasterAction" method="checkDupSize">
+			<result name="success"> admin/addSizeBtn.jsp </result>
+			<result name="error"> admin/addSizeBtn.jsp </result>
+		</action>
+		<action name="addSize" class="actions.ItemMasterAction" method="addSize">
+			<result name="success"> messages.jsp </result>
+			<result name="error"> messages.jsp </result>
+			<result name="duplicate"> messages.jsp </result>
+		</action>
+		<action name="editSizeCall" class="actions.ItemMasterAction" method="getSizeById">
+			<result name="sessionExpired"> sessionOut.jsp </result>
+			<result name="success"> admin/editSize.jsp </result>
+			<result name="error"> messages.jsp </result>
+		</action>
+		<action name="editSize" class="actions.ItemMasterAction" method="editSizeById">
+			<result name="success"> messages.jsp </result>
+			<result name="error"> messages.jsp </result>
+		</action> 
+		<action name="delSize" class="actions.ItemMasterAction" method="delSizeById">
+			<result name="success"> messages.jsp </result>
+			<result name="error"> messages.jsp </result>
+		</action>
+		
+		
+		<action name="addItemCall" class="actions.ItemMasterAction">
+			<result name="sessionExpired"> sessionOut.jsp </result>
+			<result name="success"> admin/addItem.jsp </result>
+		</action>
+		
+		<action name="checkDuplicateItemID" class="actions.ItemMasterAction" method="checkDuplicateItemID">
+			<result name="sessionExpired"> checkDuplicateItemID.jsp </result>
+			<result name="success"> admin/itemIdDupCheck.jsp </result>
+		</action>
+		
+		
+		
+		
+		<action name="checkDupItem" class="actions.ItemMasterAction" method="checkDupItem">
+			<result name="success"> admin/addItemBtn.jsp </result>
+			<result name="name"> admin/addItemBtn.jsp </result>
+			<result name="code"> admin/addItemBtn.jsp </result>
+			<result name="both"> admin/addItemBtn.jsp </result>
+		</action>
+		<action name="checkDupItemCode" class="actions.ItemMasterAction" method="checkDupItemCode">
+			<result name="success"> admin/addItemBtn.jsp </result>
+			<result name="error"> admin/addItemBtn.jsp </result>
+		</action>
+		
+		<action name="addItem" class="actions.ItemMasterAction" method="addItem">
+			<result name="success"> messages.jsp </result>
+			<result name="error"> messages.jsp </result>
+			<result name="duplicate"> messages.jsp </result>
+		</action>
+		
+		
+		<action name="addPopupItems" class="actions.ItemMasterAction" method="addPopupItems">
+			<result name="success"> admin/showResult.jsp </result>
+			<result name="error"> admin/showResult.jsp </result>
+			<result name="duplicate">admin/showResult.jsp</result>
+		</action>
+		
+		
+		
+		
+		
+		
+		<action name="getItemsCall" class="actions.ItemMasterAction" method="getItems">
+			<result name="success">admin/showItemList.jsp</result>
+		</action>
+		<action name="editItemsCall" class="actions.ItemMasterAction" method="getItemById">
+			<result name="sessionExpired"> sessionOut.jsp </result>
+			<result name="success">admin/editItem.jsp</result>
+		</action>
+		<action name="editItems" class="actions.ItemMasterAction" method="editItemsById">
+			<result name="success">messages.jsp</result>
+		</action>
+		
+		<action name="barcodesearch" class="actions.ItemMasterAction" method="barcodesearch">
+			<result name="success">admin/barcodeSearch.jsp</result>
+		</action>
+		
+		<action name="barcodesBYFROMAndTODATE" class="actions.ItemMasterAction" method="barcodeList">
+			<result name="success">admin/barcodelist.jsp</result>
+		</action>
+		
+		<!-- ##################################### Items Related configuration End Here ######################## -->
+		
+		<!-- ##################################### Scheme Related configuration Start Here ######################## -->
+				<action name="addSchemeCall" class="actions.SchemeMasterAction">
+					<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+					<result name="success">admin/addScheme.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				<action name="checkDupScheme" class="actions.SchemeMasterAction" method="checkDupScheme">
+					<result name="success">admin/addSchemeBtn.jsp</result>
+					<result name="error">admin/addSchemeBtn.jsp</result>
+				</action>
+				
+				<action name="addScheme" class="actions.SchemeMasterAction" method="saveScheme">
+					<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+					<result name="success">messages.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				<action name="viewSchemeCall" class="actions.SchemeMasterAction" method="viewSchemeCall">
+					<result name="success">admin/schemeList.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				<action name="viewEligibleCustomerCall" class="actions.SchemeMasterAction" method="viewEligibleCustomerCall">
+					<result name="success">admin/viewEligibleCustomer.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				<action name="fetchEligibleCustomerList" class="actions.SchemeMasterAction" method="fetchEligibleCustomerList">
+					<result name="success">admin/viewEligibleCustomerInCombo.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				<action name="fetchEligibleproductsList" class="actions.SchemeMasterAction" method="fetchEligibleproductsList">
+					<result name="success">admin/viewEligibleProducts.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				
+				<action name="callItemsBySchemeNames" class="actions.SchemeMasterAction" method="showItemNames">
+					<result name="success">admin/viewItemsBySchemeNames.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				
+				<action name="callCustomersBySchemeNames" class="actions.SchemeMasterAction" method="showCustomerNames">
+					<result name="success">admin/viewCustomersBySchemeNames.jsp</result>
+					<result name="error">admin/viewCustomersBySchemeNames.jsp</result>
+				</action>
+				
+				
+				<action name="calldelSchemeBySchemeNames" class="actions.SchemeMasterAction" method="showCustomerNames">
+					<result name="success">admin/schemeDel.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				
+				<action name="SchemesBYFROMAndTODATE" class="actions.SchemeMasterAction" method="getAllSchemesBYFROMAndTODATE">
+					<result name="success">admin/viewALLShemeByDATE.jsp</result>
+					<result name="error"></result>
+				</action>
+				
+				<action name="schemeDelValidation" class="actions.SchemeMasterAction" method="schemeDelValidation">
+					<result name="success">admin/showResult.jsp</result>
+					<result name="error">admin/showResult.jsp</result>
+				</action>
+				
+				
+				<action name="callItemsByItemsName" class="actions.SchemeMasterAction" method="searchItemsByItemsName">
+					<result name="success">admin/itemsListByItemNames.jsp</result>
+					<result name="error">admin/itemsListByItemNames.jsp</result>
+				</action>
+				
+				<action name="callCustomersByCustomerNames" class="actions.SchemeMasterAction" method="searchCustomersByCustomerNames">
+					<result name="success">admin/customerListBynames.jsp</result>
+					<result name="error">admin/customerListBynames.jsp</result>
+				</action>
+				
+				<action name="getSchemeDetails" class="actions.SchemeMasterAction" method="getSchemeDetailsForEdit">
+					<result name="success">admin/schemeEdit.jsp</result>
+					<result name="error">admin/schemeEdit.jsp</result>
+				</action>				
+		<!-- ##################################### Scheme Related configuration End Here ######################## -->
+		
+		<!-- ##################################### Location Master Start Here ######################## -->
+		<action name="addWareHouseCall" class="actions.LocationMasterAction">
+			<result name="success">admin/addWareHouse.jsp</result>
+		</action>
+		
+		<action name="addWareHouse" class="actions.LocationMasterAction" method="addWareHouse">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">messages.jsp</result>
+			<result name="duplicate">messages.jsp</result>
+		</action>
+		
+		<action name="locationListCall" class="actions.LocationMasterAction" method="getLocations">
+			<result name="success">admin/wareHouseList.jsp</result>
+		</action>
+		
+		<action name="editLocationCall" class="actions.LocationMasterAction" method="getLocationById">
+			<result name="success">admin/warehouseEdit.jsp</result>
+		</action>
+		
+		<action name="editWareHouse" class="actions.LocationMasterAction" method="editLocationById">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">messages.jsp</result>
+		</action>
+		<!-- ##################################### Location Master End Here ######################## -->
+	
+		<!-- ##################################### Supplier Master Config Start Here ######################## -->
+		
+		<action name="supplierCall" class="actions.SupplierMasterAction">
+			<result name="">admin/supplierMaster.jsp</result>
+		</action>
+		
+		<action name="saveSupplierDetails" class="actions.SupplierMasterAction" method="saveSupplierDetails" >
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">messages.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+			<result name="duplicate">messages.jsp</result>
+		</action>
+		
+         <action name="viewSupplierList" class="actions.SupplierMasterAction" method="viewSupplierList" >
+			<result name="success">admin/supplierDetialsList.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="editSupplierCall" class="actions.SupplierMasterAction" method="editSupplierCall" >
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/supplierMasterEdit.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="UpdateSupplierDetails" class="actions.SupplierMasterAction" method="updateSupplierMasterBySID" >
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">messages.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="delSupplier" class="actions.SupplierMasterAction"  method="delSupplier">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">messages.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		
+<!-- ##################################### Supplier Master Config End Here ######################## -->
+
+	<!-- ##################################### Customer Master Config Start Here ######################## -->
+	   
+       <action name="addcustomerCall" class="actions.CustomerAction"  >
+			<result name="success">admin/customerMaster.jsp</result>
+		</action>
+		
+		<action name="saveCustomerDetails" class="actions.CustomerAction"  method="saveCustomerDetails" >
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">messages.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+			<result name="duplicate">messages.jsp</result>
+		</action>
+		
+		<action name="editCustomerCall" class="actions.CustomerAction"  method="viewlistAndEditCall" >
+			<result name="listPage">admin/customerDetialsList.jsp</result>
+			<result name="editPage">admin/customerMasterEdit.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="delCustomer" class="actions.CustomerAction"  method="delCustomer">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">messages.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+	
+<!-- ##################################### Customer Master Config End Here ######################## -->
+	
+<!-- ##################################### Stock Master Config Start Here ######################## -->
+		<action name="addItemFromStock" class="actions.StockMasterAction" method="addItemFromStock">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/showResult.jsp</result>
+		</action>
+		
+		<action name="addItemFromStock2" class="actions.StockMasterAction" method="addItemFromStock2">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/showResult2.jsp</result>
+			<result name="both">admin/showResult2.jsp</result>
+			<result name="name">admin/showResult2.jsp</result>
+			<result name="code">admin/showResult2.jsp</result>
+		</action>
+		
+        <action name="sTockCall" class="actions.StockMasterAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/stockAddMaster.jsp </result>
+		</action>
+		
+		
+		<action name="addItemCallPopup" class="actions.StockMasterAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/addItemFromStock.jsp </result>
+		</action>
+		
+		<action name="checkDupBill" class="actions.StockMasterAction" method="checkDupBill">
+			<result name="success">admin/addStockBtn.jsp</result>
+		</action>
+		
+		<action name="addStockDetails" class="actions.StockMasterAction" method="addStockDetails">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">messages.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="supplierComboCall" class="actions.StockMasterAction" method="supplierComboCall">
+			<result name="success"> admin/supplierComboBox.jsp </result>
+		</action>
+		
+		<action name="getArticleName" class="actions.StockMasterAction" method="getArticleName">
+			<result name="success"> admin/showResult.jsp </result>
+		</action>
+		
+		<action name="stockListCall" class="actions.StockMasterAction" method="getALLStockList">
+			<result name="success"> admin/stockDetialsListForm.jsp</result>
+		</action>
+		
+		<action name="getStockDetailsbyBillNo" class="actions.StockMasterAction" method="getStockDetailsbyBillNo">
+			<result name="success"> admin/stockDetailsByBillno.jsp</result>
+		</action>
+		
+		<action name="stockItemListCall" class="actions.StockMasterAction" method="getStockDetailsbyItemName">
+			<result name="success"> admin/stockOfItems.jsp</result>
+		</action>
+
+		<action name="getItemStock" class="actions.StockMasterAction" method="getItemStock">
+			<result name="success"> admin/itemTotalDetails.jsp</result>
+		</action>
+		
+		<action name="searchPurchaseDetailsByDATEorSup" class="actions.StockMasterAction" method="stockDetailsByDateorSup">
+			<result name="success">admin/stockDetialsList.jsp</result>
+		</action>
+		
+		<action name="editInvoiceCall" class="actions.StockMasterAction" method="editInvoiceCall">
+			<result name="success">admin/allInvoiceList.jsp</result>
+		</action>
+		
+		<action name="chkDupBillForEdit" class="actions.StockMasterAction" method="checkDupBillForEdit">
+			<result name="success">admin/editBillBtn.jsp</result>
+		</action>
+		
+		<action name="editBillNo" class="actions.StockMasterAction" method="editBillNo">
+			<result name="success">messages.jsp</result>
+		</action>
+		
+		<action name="exportingStockDetails" class="actions.StockMasterAction" method="exportingStockDetails">
+			<result name="success">admin/stockDetialsListForm.jsp</result>
+		</action>
+		
+		<action name="closingstockcall" class="actions.StockMasterAction" method="closingStockCall">
+			<result name="success">admin/closingStockDetails.jsp</result>
+		</action>
+		
+		<action name="saveUpdateClosingDetails" class="actions.StockMasterAction" method="saveUpdateClosingDetails">
+			<result name="success">messages.jsp</result>
+			<result name="error">messages.jsp</result>
+		</action>
+		
+		<action name="openingstockcall" class="actions.StockMasterAction" method="openingStockCall">
+			<result name="success">admin/openingStockDetails.jsp</result>
+		</action>
+		
+<!-- ##################################### Stock Master Config End Here ######################## -->
+
+<!-- ##################################### Debit note Config Start Here ######################## -->
+		<action name="debitNoteCall" class="actions.StockMasterAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/debitNote.jsp</result>
+		</action>
+		
+		<action name="selectStockDetails" class="actions.StockMasterAction" method="getALLStockListOfPerticularSupplier">
+			<result name="success"> admin/supplierStockDetails.jsp</result>
+		</action>
+
+		<action name="callBillDetails" class="actions.StockMasterAction" method="callBillDetails">
+			<result name="success"> admin/viewBillNo.jsp</result>
+		</action>
+		
+		<action name="submitDebitNoteDetails" class="actions.StockMasterAction" method="submitDebitNoteDetails">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> messages.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+
+		<action name="viewDebitNote" class="actions.StockMasterAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/debitNoteList.jsp</result>
+		</action>
+		
+		<action name="selectDNDetails" class="actions.StockMasterAction" method="getALLDNListOfPerticularSupplier">
+			<result name="success"> admin/debitNoteDetails.jsp</result>
+		</action>
+		
+		<action name="getDNDetails" class="actions.StockMasterAction" method="getDNDetails">
+			<result name="success"> admin/dNDetails.jsp</result>
+		</action>
+<!-- ##################################### Debit note Config Start Here ######################## -->
+		
+<!-- ##################################### Ledger Config Start Here ######################## -->
+		<action name="purchaseLedger" class="actions.LedgerAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/purchaseLedger.jsp</result>
+		</action>
+		
+		<action name="selectPLedgerDetails" class="actions.LedgerAction" method="getALLPLedgerListOfPerticularSupplier">
+			<result name="success"> admin/purchaseLedgerDetails.jsp</result>
+		</action>
+		
+		<action name="getpLedgerByModeAndSup" class="actions.LedgerAction" method="getpLedgerByModeAndSup">
+			<result name="success"> admin/purchaseLedgerDetails.jsp</result>
+		</action>
+		
+		<action name="lDetails" class="actions.LedgerAction" method="getLedgerByBillNoDnNo">
+			<result name="success"> admin/lDetails.jsp</result>
+		</action>
+		
+		<action name="printledger" class="actions.LedgerAction" method="printledgerByBillAndDnNo">
+			<result name="success"> admin/printlDetails.jsp</result>
+		</action>
+		
+		<action name="printCoverLatter" class="actions.LedgerAction" method="printCoverLatterbyDnNo">
+			<result name="success"> admin/printlDetails.jsp</result>
+		</action>
+		
+		<action name="printHoleLedger" class="actions.LedgerAction" method="purHoleLedger">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/printHoleLedgerByDates.jsp</result>
+		</action>
+		
+		<action name="selectHoleLedgerDetails" class="actions.LedgerAction" method="purHoleLedger">
+			<result name="success"> admin/printHoleLedgerByDatesAndSupId.jsp</result>
+		</action>
+		
+		<action name="exportingLedgerDetails" class="actions.LedgerAction" method="exportingLedgerDetails">
+			<result name="success">admin/purchaseLedger.jsp</result>
+		</action>
+		
+<!-- ##################################### Ledger Config Start Here ######################## -->
+
+<!-- ##################################### Sales  Config Start Here ######################## -->
+   
+        <action name="salesCall" class="actions.SalesMasterAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/salesAddMaster.jsp </result>
+			<result name="error">admin/showResult.jsp</result>
+		</action>
+        
+        <action name="getCustByName" class="actions.SalesMasterAction" method="searchCustNames">
+			<result name="success"> admin/salesCustomerCombo.jsp</result>
+		</action>
+		
+		<action name="getItemFromStock" class="actions.SalesMasterAction" method="getItemFromStock">
+			<result name="success"> admin/salesStockItemCombo.jsp</result>
+			<result name="error">admin/showResult.jsp</result>
+		</action>
+		
+		<action name="getSalesStockDetails" class="actions.SalesMasterAction" method="getSalesStockDetails">
+			<result name="success"> admin/salesQtyDetails.jsp</result>
+			
+		</action>
+		
+		<action name="checkDupSalesBill" class="actions.SalesMasterAction" method="checkDupSalesBill">
+			<result name="success">admin/addSalesBtn.jsp</result>
+		</action>
+		
+		<action name="addSalesDetails" class="actions.SalesMasterAction" method="addSaleDetails">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/salesPrintOnSave.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="salesListCall" class="actions.SalesMasterAction" method="getALLSalesList">
+			<result name="success"> admin/salesDetialsList.jsp</result>
+		</action>
+		
+		<action name="getSalesDetailsbyBillNo" class="actions.SalesMasterAction" method="getSaleskDetailsbyBillNo">
+			<result name="success"> admin/salesDetailsByBillno.jsp</result>
+		</action>
+		
+		<action name="printSalesDetailsByBillno" class="actions.SalesMasterAction" method="printSalesDetailsByBillno">
+			<result name="regularPrint">admin/salesProductPrint.jsp</result>
+			<result name="rollPrint">admin/salesProductRollPrint.jsp</result>
+		</action>
+		
+		<action name="searchSalesDetailsByDATEorCus" class="actions.SalesMasterAction" method="salesDetailsByDateorCus">
+			<result name="success">admin/salesDetialsListSearch.jsp</result>
+		</action>
+		
+		<action name="exportingSaleDetails" class="actions.SalesMasterAction" method="exportingSaleDetails">
+			<result name="success">admin/salesDetialsList.jsp</result>
+		</action>
+		
+			<action name="exportingSaleDetailsgstr" class="actions.SalesMasterAction" method="exportingSaleDetailsgstr">
+			<result name="success">admin/salesDetialsList.jsp</result>
+		</action>
+		
+			<action name="exportingSaleDetailsgstrjson" class="actions.SalesMasterAction" method="exportingSaleDetailsgstrjson">
+			<result name="success">admin/salesDetialsList.jsp</result>
+		</action>
+		
+		
+		 <action name="getTempCustDetails" class="actions.SalesMasterAction" method="getTempCustDetails">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/tempCustomerDetailsByBarcode.jsp</result>
+			<result name="error">admin/showResult.jsp</result>
+		</action>
+		
+		 <action name="addTempCustCall" class="actions.SalesMasterAction" method="addTempCustCall">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/tempCustomerAddpage.jsp</result>
+		</action>
+		
+		 <action name="addonttimetempCustomer" class="actions.SalesMasterAction" method="addoneTimeTempCustCall">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/tempCustomerAddpage2.jsp</result>
+		</action>
+		
+		<action name="addTempCustDetails" class="actions.SalesMasterAction" method="addTempCustDetails">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/showResult.jsp</result>
+			
+		</action>
+		
+		<action name="getTempCustBuyDetails" class="actions.SalesMasterAction" method="getTempCustBuyDetails">
+			<result name="success"> admin/tmpCusBuyDetailsByBarcode.jsp</result>
+			<result name="error">admin/showResult.jsp</result>
+		</action>
+		
+		<action name="productReplaceCall" class="actions.SalesMasterAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/productReplaceForm.jsp </result>
+		</action>
+		
+		<action name="getCnListofCus" class="actions.SalesMasterAction" method="getCnListofCus">
+			<result name="success"> admin/cnList.jsp </result>
+		</action>
+		
+		<action name="replaceProduct" class="actions.SalesMasterAction" method="replaceProduct">
+			<result name="success"> messages.jsp </result>
+		</action>
+		
+			<action name="gstlistCall" class="actions.SalesMasterAction" method="getALLSalesList">
+			<result name="success"> admin/salesDetialsListgstexport.jsp</result>
+		</action>
+		
+		 <action name="salegstexport" class="actions.SalesMasterAction" method="salegstexport">
+			<result name="success"> admin/gstsaleexportsuccess.jsp</result>
+			<result name="error">admin/gstsaleexporterror.jsp</result>
+		</action>
+		
+		
+		
+		
+<!-- ##################################### Sales  Config End Here ######################## -->
+
+<!-- ##################################### Credit Note  Config Start Here ######################## -->
+	
+	<action name="creditNoteCall" class="actions.SalesMasterAction" method="creditNoteCall">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/calculateCreditNote.jsp</result>
+		</action>
+		
+		<action name="customerSaleDet" class="actions.SalesMasterAction" method="getCustBuyDetails">
+			<result name="success"> admin/salesDetailsofCustomer.jsp</result>
+		</action>
+		
+		<action name="submitCreditNoteDetails" class="actions.SalesMasterAction" method="addCreditNote">
+			<result name="success"> messages.jsp</result>
+		</action>
+		
+		<action name="callSaleBillDetails" class="actions.SalesMasterAction" method="callSaleBillDetails">
+			<result name="success"> admin/viewSaleBillNo.jsp</result>
+		</action>
+		
+		<action name="searchCustBarcode" class="actions.SalesMasterAction"  method="searchCustBarcode">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/salesCustomerBarcodeCombo.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="searchProductCode" class="actions.SalesMasterAction"  method="searchProductCode">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/salesProductCombo.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="searchCustDetailstByProductCode" class="actions.SalesMasterAction"  method="SerchCustDetailsByProductCode">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/salesCustomerIdAndName.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="creditNoteDetailsCall" class="actions.SalesMasterAction"  method="creditNoteDetailsCall">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/creditNoteDetails.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="getCreditNoteListByCustBarcode" class="actions.SalesMasterAction"  method="getCreditNoteListByCustBarcode">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/CNDetailsPage.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		<action name="callSaleBillDetailsByCustID" class="actions.SalesMasterAction"  method="callSaleBillDetailsByCustID">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/viewSaleBillNo.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		
+		<action name="getCNRefundableDetByBillno" class="actions.SalesMasterAction"  method="getCNRefundableDetByBillno">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success">admin/cnProductDetails.jsp</result>
+			<result name="error">allErrorMessage.jsp</result>
+		</action>
+		
+		
+		<!-- <action name="selectSalesDetails" class="actions.SalesMasterAction" method="getALLSalesListOfPerticularCustomer">
+			<result name="success"> admin/salesDetailsofCustomer.jsp</result>
+		</action> -->
+	
+		
+<!-- ##################################### Credit Note  Config End Here ######################## -->
+
+<!-- ##################################### Connection Reinitialization config ######################## -->
+       
+       <action name="conReCall" class="actions.StockMasterAction" method="conReCall">
+			<result name="success">conInitializer.jsp</result>
+	   </action>
+
+<!-- ##################################### Connection Reinitialization config ######################## -->
+
+<!-- ##################################### Purchase Payment  Config Start Here ######################## -->
+
+		<action name="supplierPay" class="actions.SupplierPaymentAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/supplierBillForPayment.jsp</result>
+		</action>
+		
+		<action name="supplierPaymentBilNo" class="actions.SupplierPaymentAction" method="supplierPaymentBilNo">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/multipleSupplierPaymentForm.jsp</result>
+		</action>
+		
+		<!--  <action name="supplierPaymentBilNo" class="actions.SupplierPaymentAction" method="supplierPaymentBilNo">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/supplierPayBillNo.jsp</result>
+		</action>-->
+		
+		 <action name="supplierPaymentDetailsByBilNo" class="actions.SupplierPaymentAction" method="supplierPaymentDetailsByBilNo">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/supplierPayForm.jsp</result>
+		</action>
+		
+		<action name="supplierPayment" class="actions.SupplierPaymentAction" method="saveSupplierPayment">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> messages.jsp</result>
+		</action>
+		
+		
+		<action name="smsPay" class="actions.SupplierPaymentAction" method="smsPay">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/smsPayCall.jsp</result>
+		</action>
+		
+			<action name="searchCustomerforsms" class="actions.SupplierPaymentAction" method="searchCustomerforsms">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/customerListforsms.jsp</result>
+		</action>
+		
+				<action name="custsmssend" class="actions.SupplierPaymentAction" method="custsmssend">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/smsPayCall.jsp</result>
+		</action>
+		
+		
+			<action name="searchSupplierByName" class="actions.SupplierPaymentAction" method="searchSupplierByName">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/supplierbyname.jsp</result>
+		</action>
+		
+		
+		
+		<!-- <action name="wholeCustomerPayStatus" class="actions.CustomerPaymentAction" method="allCustomerPaymentDueSatus">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerWholePaymentDueStatus.jsp</result>
+		</action>
+		
+		<action name="printWholeCustomerDuePayStatus" class="actions.CustomerPaymentAction" method="allCustomerPaymentDueSatusForPrint">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerWholePaymentprint.jsp</result>
+		</action>
+		
+		<action name="customerPayWithDue" class="actions.CustomerPaymentAction" method="getCustomerWithDuePay">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerPayDue.jsp</result>
+		</action>
+		
+		<action name="customerPayDueStatus" class="actions.CustomerPaymentAction" method="paymentDueSatusOfCustomer">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerPaymentDueStatus.jsp</result>
+		</action> 
+		
+		<action name="printCustomerPayDueStatus" class="actions.CustomerPaymentAction" method="paymentDueSatusOfCustomerPrint">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerWholePaymentprint.jsp</result>
+		</action>
+		
+		 <action name="customerPayStatus" class="actions.CustomerPaymentAction" method="paymentSatusOfCustomer">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerPaymentStatus.jsp</result>
+		</action>  -->
+		
+		
+<!-- ##################################### Purchase Payment  Config Start Here ######################## -->
+
+<!-- ##################################### Sales Payment  Config Start Here ######################## -->
+
+		<action name="customerPay" class="actions.CustomerPaymentAction">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/saleBillForPayment.jsp</result>
+		</action>
+		
+		<action name="retreiveCustomerList" class="actions.CustomerPaymentAction" method="retreiveCustomerList">
+			<result name="success">admin/customerListbyName2.jsp</result>
+		</action>
+		
+		<action name="customerPaymentDetailsByBilNo" class="actions.CustomerPaymentAction" method="customerPaymentDetailsByBilNo">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/customerPayForm.jsp</result>
+		</action>
+		
+		<action name="cuatomrPayment" class="actions.CustomerPaymentAction" method="saveCustomerPayment">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> messages.jsp</result>
+		</action>
+		
+		<action name="wholeCustomerPayStatus" class="actions.CustomerPaymentAction" method="allCustomerPaymentDueSatus">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerWholePaymentDueStatus.jsp</result>
+		</action>
+		
+		<action name="printWholeCustomerDuePayStatus" class="actions.CustomerPaymentAction" method="allCustomerPaymentDueSatusForPrint">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/customerWholePaymentprint.jsp</result>
+		</action>
+		
+		<action name="customerPayWithDue" class="actions.CustomerPaymentAction" method="getCustomerWithDuePay">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/customerPayDue.jsp</result>
+		</action>
+		
+		<action name="customerPayDueStatus" class="actions.CustomerPaymentAction" method="paymentDueSatusOfCustomer">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerPaymentDueStatus.jsp</result>
+		</action> 
+		
+		<action name="printCustomerPayDueStatus" class="actions.CustomerPaymentAction" method="paymentDueSatusOfCustomerPrint">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/customerWholePaymentprint.jsp</result>
+		</action>
+		
+		 <action name="customerPayStatus" class="actions.CustomerPaymentAction" method="paymentSatusOfCustomer">
+			<interceptor-ref name="sessionCheck"></interceptor-ref>
+			<result name="success"> admin/customerPaymentStatus.jsp</result>
+		</action>
+		
+		<action name="customerPaymentBilNo" class="actions.CustomerPaymentAction" method="customerPaymentBilNo">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+            <!-- <result name="success"> admin/customerPaymentBillNo.jsp</result> -->
+                <result name="success"> admin/multipleCustomerPaymentForm.jsp</result>
+		</action>
+		
+		<action name="excelWholeCustomerDue" class="actions.CustomerPaymentAction" method="excelWholeCustomerDue">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/customerWholePaymentDueStatus.jsp</result>
+		</action>
+		
+		
+		<action name="printHoleCustLedger" class="actions.LedgerAction" method="customerHoleLedger">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/printHoleCustLedgerByDates.jsp</result>
+		</action>
+		
+		<action name="selectHolecustLedgerDetails" class="actions.LedgerAction" method="customerHoleLedger">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> admin/printHoleLedgerByDatesAndCust.jsp</result>
+		</action>
+		
+		
+		
+		
+<!-- ##################################### Sales Payment  Config Start Here ######################## -->
+<!-- ##################################### DataBase backup config Start Here ########################   -->
+
+         <action name="databasebackup" class="actions.LoginAction" method="backupDatabase">
+			<!-- <interceptor-ref name="sessionCheck"></interceptor-ref> -->
+			<result name="success"> index.jsp</result>
+		</action>
+
+<!-- ##################################### DataBase backup config End Here ########################   -->
+
+<!-- ##################################### session config Start Here ########################   -->
+
+<action name="sessionCheck" class="actions.LoginAction" method="sessionCheck">
+			<result name="success">sessionIn.jsp</result>
+			<result name="expire">sessionIn.jsp</result>
+		</action>
+<!-- ##################################### session config End Here ########################   -->
+<!-- ##################################### Print Credit CoverLetter config Start Here ########################   -->
+
+        <action name="printCreditCoverLetter" class="actions.LedgerAction" method="printCreditCoverLetter">
+			<result name="success">admin/printlDetails.jsp</result>
+		</action>
+		
+		<action name="printCreditLedger" class="actions.LedgerAction" method="printCreditLedger">
+			<result name="success">admin/printlDetails.jsp</result>
+		</action>
+
+<!-- ##################################### Print Credit CoverLetter config End Here ########################   -->
+
+
+	</package>
+</struts>
